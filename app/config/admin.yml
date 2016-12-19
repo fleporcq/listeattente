@@ -3,3 +3,9 @@ sonata_block:
     blocks:
         sonata.admin.block.admin_list:
             contexts: [admin]
+services:
+    admin.patient:
+        class: AppBundle\Admin\PatientAdmin
+        arguments: [~, AppBundle\Entity\Patient, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Patient }
