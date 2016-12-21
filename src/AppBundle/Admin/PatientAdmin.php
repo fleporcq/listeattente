@@ -10,9 +10,30 @@ class PatientAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('prenom', 'text');
-        $formMapper->add('nom', 'text');
-        $formMapper->add('dateDeNaissance', 'date');
+        $formMapper
+            ->add('prenom', 'text')
+            ->add('nom', 'text')
+            ->add('dateDeNaissance', 'date', [
+                'required' => false,
+            ])
+            ->add('telephone1', 'text', [
+                'required' => false,
+            ])
+            ->add('telephone2', 'text', [
+                'required' => false,
+            ])
+            ->add('telephone3', 'text', [
+                'required' => false,
+            ])
+            ->add('adresse', 'textarea', [
+                'required' => false,
+            ])
+            ->add('activite', 'text', [
+                'required' => false,
+            ])
+            ->add('notes', 'textarea', [
+                'required' => false,
+            ]);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

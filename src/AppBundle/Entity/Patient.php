@@ -67,6 +67,12 @@ class Patient
 
     /**
      * @var string
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $adresse;
+
+    /**
+     * @var string
      * @ORM\Column(type="string", length=100, nullable=true)
      * @Assert\Length(max = 100)
      */
@@ -79,8 +85,6 @@ class Patient
     private $notes;
 
     /**
-     * Get id
-     *
      * @return int
      */
     public function getId()
@@ -193,6 +197,24 @@ class Patient
     public function setTelephone3($telephone3)
     {
         $this->telephone3 = $telephone3;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
+     * @param string $adresse
+     * @return Patient
+     */
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
         return $this;
     }
 
