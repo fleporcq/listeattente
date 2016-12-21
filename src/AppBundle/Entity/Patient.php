@@ -68,6 +68,7 @@ class Patient
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(max = 1000)
      */
     private $adresse;
 
@@ -81,6 +82,7 @@ class Patient
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(max = 1000)
      */
     private $notes;
 
