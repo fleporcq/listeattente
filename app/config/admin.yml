@@ -9,3 +9,8 @@ services:
         arguments: [~, AppBundle\Entity\Patient, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, label: Patient }
+    admin.trouble:
+            class: AppBundle\Admin\TroubleAdmin
+            arguments: [~, AppBundle\Entity\Trouble, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Trouble }
