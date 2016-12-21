@@ -46,22 +46,22 @@ class Patient
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\Length(max = 10)
+     * @ORM\Column(type="string", length=14, nullable=true)
+     * @Assert\Length(max = 14)
      */
     private $telephone1;
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\Length(max = 10)
+     * @ORM\Column(type="string", length=14, nullable=true)
+     * @Assert\Length(max = 14)
      */
     private $telephone2;
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=10, nullable=true)
-     * @Assert\Length(max = 10)
+     * @ORM\Column(type="string", length=14, nullable=true)
+     * @Assert\Length(max = 14)
      */
     private $telephone3;
 
