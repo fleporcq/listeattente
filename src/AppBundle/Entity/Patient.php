@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -90,6 +91,18 @@ class Patient
      * @ORM\ManyToMany(targetEntity="Trouble")
      */
     private $troubles;
+
+    /**
+     * @var Appel[]
+     * @ORM\OneToMany(targetEntity="Appel", mappedBy="patient", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $appels;
+
+    public function __construct()
+    {
+        $this->troubles = new ArrayCollection();
+        $this->appels = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -276,6 +289,35 @@ class Patient
     public function setTroubles($troubles)
     {
         $this->troubles = $troubles;
+        return $this;
+    }
+
+    /**
+     * @return Appel[]
+     */
+    public function getAppels()
+    {
+        return $this->appels;
+    }
+
+    /**
+     * @param Appel $appel
+     * @return Patient
+     */
+    public function addAppel(Appel $appel)
+    {
+        $this->appels->add($appel);
+        return $this;
+    }
+
+    /**
+     * @param Appel $appel
+     * @return Patient
+     */
+    public function removeAppel(Appel $appel)
+    {
+        $appel->setPatient(null);
+        $this->appels->removeElement($appel);
         return $this;
     }
 

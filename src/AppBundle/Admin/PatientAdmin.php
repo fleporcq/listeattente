@@ -1,6 +1,8 @@
 <?php
 namespace AppBundle\Admin;
 
+use AppBundle\Entity\Appel;
+use AppBundle\Entity\Patient;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -37,7 +39,13 @@ class PatientAdmin extends AbstractAdmin
             ->add('troubles', 'sonata_type_model', [
                 'required' => false,
                 'multiple' => true,
-                'btn_add' => false
+                'btn_add' => false,
+            ])
+            ->add('appels', 'sonata_type_collection', [
+                'by_reference' => false,
+            ], [
+                'edit' => 'inline',
+                'inline' => 'table',
             ]);
     }
 
@@ -53,5 +61,25 @@ class PatientAdmin extends AbstractAdmin
         $listMapper->addIdentifier('prenom');
         $listMapper->addIdentifier('nom');
         $listMapper->addIdentifier('dateDeNaissance');
+    }
+
+    /**
+     * @param Patient $patient
+     */
+    public function prePersist($patient)
+    {
+
+        foreach ($patient->getAppels() as $appel) {
+            /** @var Appel $appel */
+            $appel->setPatient($patient);
+        }
+    }
+
+    /**
+     * @param Patient $patient
+     */
+    public function preUpdate($patient)
+    {
+        $this->prePersist($patient);
     }
 }

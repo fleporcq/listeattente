@@ -24,16 +24,24 @@ class Appel
     /**
      * @var \DateTime
      * @ORM\Column(type="date")
+     * @Assert\NotNull()
      */
     private $date;
 
     /**
      * @var string
      * @ORM\Column(type="text", nullable=true)
-     * @Assert\NotBlank()
      * @Assert\Length(max = 1000)
      */
     private $notes;
+
+    /**
+     * @var Patient
+     * @ORM\ManyToOne(targetEntity="Patient", inversedBy="appels")
+     * @ORM\JoinColumn(name="patient_id", referencedColumnName="id", nullable=false)
+     * @Assert\NotNull()
+     */
+    private $patient;
 
     /**
      * @return int
@@ -76,6 +84,24 @@ class Appel
     public function setNotes($notes)
     {
         $this->notes = $notes;
+        return $this;
+    }
+
+    /**
+     * @return Patient
+     */
+    public function getPatient()
+    {
+        return $this->patient;
+    }
+
+    /**
+     * @param Patient $patient
+     * @return Appel
+     */
+    public function setPatient($patient)
+    {
+        $this->patient = $patient;
         return $this;
     }
 
