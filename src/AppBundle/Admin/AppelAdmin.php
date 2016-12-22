@@ -9,7 +9,9 @@ class AppelAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('date', 'date')
+            ->add('date', 'sonata_type_date_picker', [
+                'format' => 'dd/MM/yyyy',
+            ])
             ->add('notes', 'textarea', [
                 'required' => false,
             ]);

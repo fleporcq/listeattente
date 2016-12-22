@@ -15,8 +15,9 @@ class PatientAdmin extends AbstractAdmin
         $formMapper
             ->add('prenom', 'text')
             ->add('nom', 'text')
-            ->add('dateDeNaissance', 'date', [
+            ->add('dateDeNaissance', 'sonata_type_date_picker', [
                 'required' => false,
+                'format' => 'dd/MM/yyyy',
             ])
             ->add('telephone1', 'text', [
                 'required' => false,
