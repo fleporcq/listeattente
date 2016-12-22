@@ -15,7 +15,6 @@ class Patient
 {
     /**
      * @var int
-     *
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -85,6 +84,12 @@ class Patient
      * @Assert\Length(max = 1000)
      */
     private $notes;
+
+    /**
+     * @var Trouble[]
+     * @ORM\ManyToMany(targetEntity="Trouble")
+     */
+    private $troubles;
 
     /**
      * @return int
@@ -253,6 +258,24 @@ class Patient
     public function setNotes($notes)
     {
         $this->notes = $notes;
+        return $this;
+    }
+
+    /**
+     * @return Trouble[]
+     */
+    public function getTroubles()
+    {
+        return $this->troubles;
+    }
+
+    /**
+     * @param Trouble[] $troubles
+     * @return Patient
+     */
+    public function setTroubles($troubles)
+    {
+        $this->troubles = $troubles;
         return $this;
     }
 

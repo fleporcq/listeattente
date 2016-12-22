@@ -33,6 +33,11 @@ class PatientAdmin extends AbstractAdmin
             ])
             ->add('notes', 'textarea', [
                 'required' => false,
+            ])
+            ->add('troubles', 'sonata_type_model', [
+                'required' => false,
+                'multiple' => true,
+                'btn_add' => false
             ]);
     }
 
