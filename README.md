@@ -1,69 +1,48 @@
-Symfony Standard Edition
-========================
+# Liste d'attente
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+## Déploiement
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+```bash
+# Installation des dépendances
+composer install
 
-What's inside?
---------------
+# Création de la base de données
+php bin/console doctrine:database:create
 
-The Symfony Standard Edition is configured with the following defaults:
+# Création du schéma
+php bin/console doctrine:migrations:migrate
 
-  * An AppBundle you can use to start coding;
+# Installation des assets
+php bin/console assets:install
+```
 
-  * Twig as the only configured template engine;
+## Installation de l'environnement Docker
 
-  * Doctrine ORM/DBAL;
+```bash
+# Démarrage des services
+docker-compose up -d
 
-  * Swiftmailer;
+# Applications des permissions
+HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX var
+sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX var
+sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/DoctrineMigrations
+sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/DoctrineMigrations
+sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX web/bundles
+sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX web/bundles
+```
 
-  * Annotations enabled for everything.
+### Exécution des commandes php et composer avec docker-compose
 
-It comes pre-configured with the following bundles:
+```bash
+# php
+docker-compose exec php php bin/console [cmd]
 
-  * **FrameworkBundle** - The core Symfony framework bundle
+# composer
+docker-compose run --rm composer [cmd]
+```
 
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
+### Services disponibles
 
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
-
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
-
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/3.2/setup.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/3.2/doctrine.html
-[8]:  https://symfony.com/doc/3.2/templating.html
-[9]:  https://symfony.com/doc/3.2/security.html
-[10]: https://symfony.com/doc/3.2/email.html
-[11]: https://symfony.com/doc/3.2/logging.html
-[12]: https://symfony.com/doc/3.2/assetic/asset_management.html
-[13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
+- L'application à http://localhost:81
+- phpMyAdmin à http://localhost:82
