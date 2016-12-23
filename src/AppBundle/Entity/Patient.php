@@ -98,6 +98,12 @@ class Patient
      */
     private $appels;
 
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $blackListe;
+
     public function __construct()
     {
         $this->troubles = new ArrayCollection();
@@ -318,6 +324,24 @@ class Patient
     {
         $appel->setPatient(null);
         $this->appels->removeElement($appel);
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBlackListe()
+    {
+        return $this->blackListe;
+    }
+
+    /**
+     * @param bool $blackListe
+     * @return Patient
+     */
+    public function setBlackListe($blackListe)
+    {
+        $this->blackListe = $blackListe;
         return $this;
     }
 

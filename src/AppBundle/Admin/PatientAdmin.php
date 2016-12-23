@@ -47,6 +47,9 @@ class PatientAdmin extends AbstractAdmin
             ], [
                 'edit' => 'inline',
                 'inline' => 'table',
+            ])
+            ->add('blackListe', 'sonata_type_boolean', [
+                'transform' => true
             ]);
     }
 
