@@ -13,6 +13,12 @@ class PatientAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->add('position', 'text', [
+                'attr' => [
+                    'readonly' => true,
+                    'disabled' => true,
+                ],
+            ])
             ->add('prenom', 'text')
             ->add('nom', 'text')
             ->add('dateDeNaissance', 'sonata_type_date_picker', [
@@ -55,16 +61,18 @@ class PatientAdmin extends AbstractAdmin
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('prenom');
-        $datagridMapper->add('nom');
-        $datagridMapper->add('dateDeNaissance');
+        $datagridMapper
+            ->add('prenom')
+            ->add('nom');
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper->addIdentifier('prenom');
-        $listMapper->addIdentifier('nom');
-        $listMapper->addIdentifier('dateDeNaissance');
+        $listMapper
+            ->add('position')
+            ->addIdentifier('prenom')
+            ->addIdentifier('nom')
+            ->add('dateDeNaissance');
     }
 
     /**
@@ -72,7 +80,6 @@ class PatientAdmin extends AbstractAdmin
      */
     public function prePersist($patient)
     {
-
         foreach ($patient->getAppels() as $appel) {
             /** @var Appel $appel */
             $appel->setPatient($patient);

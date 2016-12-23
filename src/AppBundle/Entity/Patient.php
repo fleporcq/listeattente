@@ -104,10 +104,17 @@ class Patient
      */
     private $blackListe;
 
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    private $position;
+
     public function __construct()
     {
         $this->troubles = new ArrayCollection();
         $this->appels = new ArrayCollection();
+        $this->position = 0;
     }
 
     /**
@@ -346,10 +353,29 @@ class Patient
     }
 
     /**
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @param int $position
+     * @return Patient
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function __toString()
     {
         return $this->prenom . ' ' . $this->nom;
     }
+
 }
